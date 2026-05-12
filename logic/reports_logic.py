@@ -18,7 +18,6 @@ def get_trial_balance() -> pd.DataFrame:
                 "ob_dr": 0.0, "ob_cr": 0.0, "mv_dr": 0.0, "mv_cr": 0.0
             }
 
-    # 1. Opening balances (Leaf levels)
     if not balances_df.empty:
         balances_df["code"] = balances_df["code"].astype(str).str.strip()
         for _, row in balances_df.iterrows():
@@ -27,7 +26,6 @@ def get_trial_balance() -> pd.DataFrame:
                 balances[code]["ob_dr"] += float(row.get("beginning_dr") or 0)
                 balances[code]["ob_cr"] += float(row.get("beginning_cr") or 0)
 
-    # 2. Movement from entries (Leaf levels)
     if not entries_df.empty:
         entries_df["code"] = entries_df["code"].astype(str).str.strip()
         mov = entries_df.groupby("code").agg(
@@ -41,7 +39,6 @@ def get_trial_balance() -> pd.DataFrame:
                 balances[code]["mv_dr"] += float(row["dr"])
                 balances[code]["mv_cr"] += float(row["cr"])
 
-    # 3. Hierarchical Roll-up (Bottom-up)
     sorted_codes = sorted(list(balances.keys()), key=len, reverse=True)
     for code in sorted_codes:
         parent_code = None
@@ -55,7 +52,6 @@ def get_trial_balance() -> pd.DataFrame:
             balances[parent_code]["mv_dr"] += balances[code]["mv_dr"]
             balances[parent_code]["mv_cr"] += balances[code]["mv_cr"]
 
-    # 4. Format the final output
     rows = []
     for code in sorted(list(balances.keys())):
         b = balances[code]
@@ -178,11 +174,9 @@ def update_beginning_balance(code: str, beg_dr: float, beg_cr: float) -> tuple[b
     if not df.empty:
         df["code"] = df["code"].astype(str).str.strip()
 
-    # Clean out old duplicates
     if not df.empty and code in df["code"].values:
         df = df[df["code"] != code] 
 
-    # If both inputs are exactly zero, do not write a new row (effectively deletes it)
     if float(beg_dr) == 0.0 and float(beg_cr) == 0.0:
         save_balances(df)
         return True, "Balance cleared from system."
