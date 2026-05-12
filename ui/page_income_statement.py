@@ -17,7 +17,6 @@ def render():
     tot_exp = data.get("total_expenses", 0)
     net     = data.get("net_income", 0)
 
-    # Top KPI cards
     c1, c2, c3 = st.columns(3)
     c1.metric("Total Revenues",  f"{tot_rev:,.2f}", delta_color="off")
     c2.metric("Total Expenses",  f"{tot_exp:,.2f}", delta_color="off")
@@ -31,7 +30,6 @@ def render():
 
     col_rev, col_exp = st.columns(2)
 
-    # ── REVENUES ──────────────────────────────────────────────────────────────
     with col_rev:
         st.markdown("""
         <div style="background:linear-gradient(135deg,#DCFCE7,#BBF7D0);
@@ -59,7 +57,6 @@ def render():
             </div>
             """, unsafe_allow_html=True)
 
-    # ── EXPENSES ──────────────────────────────────────────────────────────────
     with col_exp:
         st.markdown("""
         <div style="background:linear-gradient(135deg,#FEE2E2,#FECACA);
@@ -89,7 +86,6 @@ def render():
 
     st.divider()
 
-    # ── NET INCOME BOX ────────────────────────────────────────────────────────
     if net >= 0:
         bg   = "linear-gradient(135deg,#EFF6FF,#DBEAFE)"
         fc   = "#1E40AF"

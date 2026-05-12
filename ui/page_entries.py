@@ -28,14 +28,12 @@ def render():
         st.session_state.form_key = 0
     fk = st.session_state.form_key
 
-    # ── NEW ENTRY ─────────────────────────────────────────────────────────────
     with tab_new:
         next_jno = get_next_journal_no()
         section_header(f"Journal Entry  #{next_jno}")
 
         col_date, col_exp, col_cc, col_hana = st.columns([2, 3, 2, 2])
         with col_date:
-            # Change the default value to today's date instead of None
             entry_date = st.date_input("Date", value=date.today(), key=f"entry_date_input_{fk}")
         with col_exp:
             explanation = st.text_input("Explanation (optional)", key=f"explanation_input_{fk}")
@@ -141,7 +139,6 @@ def render():
                     else:
                         error_msg(msg)
 
-    # ── VIEW ALL ──────────────────────────────────────────────────────────────
     with tab_view:
         section_header("All Journal Entry Lines")
         df = get_all_entries()
@@ -157,7 +154,6 @@ def render():
             elif "Date" in df_disp.columns:
                 df_disp["date"] = df_disp["Date"]
 
-            # FORMATTING UPDATE: Show full %Y-%m-%d %H:%M:%S in the table
             if "date" in df_disp.columns:
                 df_disp["date"] = pd.to_datetime(df_disp["date"], errors="coerce").dt.strftime("%Y-%m-%d %H:%M:%S")
                 df_disp["date"] = df_disp["date"].fillna("-")
@@ -190,7 +186,6 @@ def render():
                 }
             )
 
-    # ── MANAGE ────────────────────────────────────────────────────────────────
     with tab_manage:
         section_header("Journal Summary")
         summary = get_journal_summary()
@@ -204,7 +199,6 @@ def render():
             elif "Date" in summary_disp.columns:
                 summary_disp["date"] = summary_disp["Date"]
                 
-            # FORMATTING UPDATE: Show full %Y-%m-%d %H:%M:%S in the manage table
             if "date" in summary_disp.columns:
                 summary_disp["date"] = pd.to_datetime(summary_disp["date"], errors="coerce").dt.strftime("%Y-%m-%d %H:%M:%S")
                 summary_disp["date"] = summary_disp["date"].fillna("-")

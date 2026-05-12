@@ -1,6 +1,5 @@
 import streamlit as st
 
-# ── Color Palette ──────────────────────────────────────────────────────────────
 PRIMARY   = "#4F6AF5"   # indigo-blue
 SUCCESS   = "#22C55E"   # green
 DANGER    = "#EF4444"   # red

@@ -49,7 +49,6 @@ def render():
             bal_map[code]["cr"] += float(r.get("beginning_cr") or 0)
 
     with st.container():
-        # First row for Inputs
         c1, c_cat, c2, c3 = st.columns([3, 3, 2, 2])
         
         safe_options = list(options.keys()) if options else ["No Sub-accounts available"]
@@ -65,7 +64,6 @@ def render():
         dr_input = c2.number_input("Debit Amount", min_value=0.0, value=float(current_ob["dr"]), step=100.0)
         cr_input = c3.number_input("Credit Amount", min_value=0.0, value=float(current_ob["cr"]), step=100.0)
 
-        # Second row for Action Buttons
         ac1, ac2, ac3 = st.columns([3, 3, 4])
         
         if ac1.button("💾 Save Balance", use_container_width=True, type="primary"):

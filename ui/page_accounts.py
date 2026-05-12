@@ -23,7 +23,6 @@ def render():
 
     tab_view, tab_add, tab_edit, tab_delete = st.tabs(["📋 View Accounts", "➕ Add Account", "✏️ Edit Account", "🗑️ Delete Account"])
 
-    # ── VIEW ──────────────────────────────────────────────────────────────────
     with tab_view:
         col_search, col_filter = st.columns([3, 2])
         with col_search:
@@ -37,11 +36,9 @@ def render():
 
         st.caption(f"Showing **{len(df)}** accounts")
 
-        # Add level indicator
         df = df.copy()
         df["level"] = df["code"].apply(lambda c: LEVEL_LABELS.get(_level(str(c)), "Account"))
 
-        # Color-coded display
         display = df.rename(columns={
             "code": "Code", "account_name": "Account Name",
             "account_type": "Type", "level": "Level"
@@ -54,7 +51,6 @@ def render():
         styled = display.style.map(color_type, subset=["Type"])
         st.dataframe(styled, use_container_width=True, hide_index=True)
 
-    # ── ADD ───────────────────────────────────────────────────────────────────
     with tab_add:
         section_header("New Account")
         with st.form("add_account_form", clear_on_submit=True):
@@ -74,7 +70,6 @@ def render():
                 else:
                     error_msg(msg)
 
-    # ── EDIT ──────────────────────────────────────────────────────────────────
     with tab_edit:
         section_header("Edit Existing Account")
         all_df = get_all_accounts()
@@ -101,7 +96,6 @@ def render():
                     else:
                         error_msg(msg)
 
-    # ── DELETE ────────────────────────────────────────────────────────────────
     with tab_delete:
         section_header("Delete Account")
         all_df = get_all_accounts()

@@ -16,8 +16,6 @@ def _write(df, path):
     df.to_csv(path, index=False, encoding="utf-8-sig")
 
 
-# ── Chart of Accounts ──────────────────────────────────────────────────────────
-
 def load_accounts() -> pd.DataFrame:
     return _read(ACCOUNTS_FILE, dtype={"code": str})
 
@@ -25,8 +23,6 @@ def load_accounts() -> pd.DataFrame:
 def save_accounts(df: pd.DataFrame):
     _write(df, ACCOUNTS_FILE)
 
-
-# ── Entry ────────────────────────────────────────────────────────────
 
 def load_entries() -> pd.DataFrame:
     df = _read(ENTRIES_FILE, dtype={"code": str, "journal_no": str})
@@ -40,8 +36,6 @@ def load_entries() -> pd.DataFrame:
 def save_entries(df: pd.DataFrame):
     _write(df, ENTRIES_FILE)
 
-
-# ── Beginning Balances ─────────────────────────────────────────────────────────
 
 def load_balances() -> pd.DataFrame:
     df = _read(BALANCES_FILE, dtype={"code": str})

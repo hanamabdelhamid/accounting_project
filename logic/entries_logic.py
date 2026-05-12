@@ -62,16 +62,13 @@ def save_journal(
     code_name = get_account_code_name_map()
     code_type = get_account_type_map()
 
-    # Capture the exact time and combine it with the selected date
     if entry_date is None:
         final_datetime = datetime.now()
     elif type(entry_date) is date:
-        # If the UI passes just a date, append the current time to it
         final_datetime = datetime.combine(entry_date, datetime.now().time())
     else:
         final_datetime = entry_date
 
-    # Format securely into a full datetime string
     safe_date = final_datetime.strftime("%Y-%m-%d %H:%M:%S") if hasattr(final_datetime, 'strftime') else str(final_datetime)
 
     new_rows = []

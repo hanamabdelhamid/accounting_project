@@ -17,11 +17,9 @@ def render():
     tot_le     = data.get("total_liabilities_equity", 0)
     net_income = data.get("net_income",              0)
 
-    # Balance check
     diff = tot_assets - tot_le
     balanced = abs(diff) < 0.01
 
-    # KPI row
     c1, c2, c3 = st.columns(3)
     c1.metric("Total Assets",               f"{tot_assets:,.2f}")
     c2.metric("Total Liabilities & Equity", f"{tot_le:,.2f}")
@@ -75,7 +73,6 @@ def render():
                "🏛️ Liabilities & Equity",
                "#F5F3FF", "#EDE9FE", "#5B21B6", "#8B5CF6")
 
-        # Net income line inside L&E
         if net_income != 0:
             ni_color = "#166534" if net_income >= 0 else "#991B1B"
             ni_label = "Net Profit" if net_income >= 0 else "Net Loss"
@@ -89,7 +86,6 @@ def render():
 
     st.divider()
 
-    # Summary equation
     st.markdown(f"""
     <div style="background:linear-gradient(135deg,#F8FAFC,#E2E8F0);
                 border-radius:14px;padding:18px 24px;text-align:center;">

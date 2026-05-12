@@ -39,7 +39,6 @@ def update_account(old_code: str, new_code: str, new_name: str, new_type: str) -
     df.loc[df["code"] == old_code, ["code", "account_name", "account_type"]] = [new_code, new_name, new_type]
     save_accounts(df)
 
-    # Propagate name and type change to Entry
     if old_code != new_code or True:
         entries = load_entries()
         if not entries.empty:

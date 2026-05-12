@@ -11,7 +11,6 @@ from logic.reports_logic import get_income_statement, get_balance_sheet, get_tri
 def render():
     page_header("Dashboard", "Overview of your accounting system at a glance.")
 
-    # ── Top KPIs ──────────────────────────────────────────────────────────────
     accounts_df = get_all_accounts()
     entries_df  = get_all_entries()
     summary_df  = get_journal_summary()
@@ -28,7 +27,6 @@ def render():
 
     col_left, col_right = st.columns(2)
 
-    # ── Account Type Breakdown ────────────────────────────────────────────────
     with col_left:
         section_header("Account Types")
         if not accounts_df.empty:
@@ -49,7 +47,6 @@ def render():
                 </div>
                 """, unsafe_allow_html=True)
 
-    # ── Recent Journals ────────────────────────────────────────────────────────
     with col_right:
         section_header("Recent Entry")
         if summary_df.empty:
@@ -69,7 +66,6 @@ def render():
 
     st.divider()
 
-    # ── Trial Balance Health ───────────────────────────────────────────────────
     section_header("Trial Balance Health")
     tb = get_trial_balance()
     if tb.empty:
@@ -87,7 +83,6 @@ def render():
 
     st.divider()
 
-    # ── Quick IS Summary ─────────────────────────────────────────────────────
     section_header("Income Statement Summary")
     c_r, c_e, c_n = st.columns(3)
 
