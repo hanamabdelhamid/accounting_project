@@ -1,0 +1,3 @@
+﻿code,account_name,account_type,beginning_dr,beginning_cr
+101001002,الأصول الثابتة - ثلاجة التبريد  -,Asset,300.0,0.0
+201003004,الارباح و الخسائر -,Liability/Equity,0.0,300.0
